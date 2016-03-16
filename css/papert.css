@@ -1,0 +1,114 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+#main{
+    margin: auto auto;
+}
+
+#content{
+    display: inline-block;
+    width:49%;
+    height: 400px; /* I hate CSS */
+}
+
+#left{
+    display: inline-block;
+    width: 49%;
+    height: 400px;
+}
+
+
+#htmlsnippet {
+    width: 800px;
+    font-size: 10px;
+}
+
+#bbcode {
+    width: 800px;
+    font-size: 10px;
+}
+
+#oldcode {
+    font-family: monospace;
+    white-space: pre;
+    overflow: scroll;
+    margin-right: 10px;
+    height: 200px;
+    width:100%;
+    z-index: 10;
+}
+
+
+#code {
+    width: 100%;
+    height: 300px;
+}
+
+
+
+#canvas {
+    width: 100%;
+}
+
+#textOutput {
+	margin: 10px 0 10px 0;
+	position: absolute;
+	font-size: 20px;
+	background-color: transparent;
+}
+
+#turtle  {
+	margin: 10px 0 10px 0;
+    height: 20px;
+    width: 20px;
+	position: absolute;
+	font-size: 20px;
+	background-color: transparent;
+}
+#notes {
+    clear: left;
+    width: 100%;
+    height: 1000px;
+}
+
+#footer{
+    clear: left;
+    width: 100%;
+    background: black;
+    text-align: center;
+    padding: 4px 0;
+    border-style: solid;
+    border-color: black;
+}
+
+#recent ul {
+    list-style-type:none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#recent ul li {
+    padding: 10px;
+    display: inline; 
+    vertical-align: middle;
+}
+
+#recent ul li a { text-decoration: none; }
+
+#recent ul li a img { border: none; }
+#recent{
+    clear: left;
+    width: 100%;
+    background: white;
+    color: #FFF;
+    text-align: center;
+    border-style: solid;
+    border-color: black;
+}
+
+#footer a{
+    color: #FFFF80;
+}

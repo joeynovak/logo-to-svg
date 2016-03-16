@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Logo To SVG</title>
+    <link rel="stylesheet" type="text/css" href="css/papert.css"/>
+    <script type="text/javascript" src="js//canvas2svg.js"></script>
+    <script type="text/javascript" src="js/turtle.js"></script>
+    <script type="text/javascript" src="js/parser.js"></script>
+    <script type="text/javascript" src="js/logo.js"></script>
+    <script src="/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.1.js"></script>
+
+    <script type="text/javascript">
+        var editor;
+        jQuery(function () {
+            //Initialize the editor
+            editor = ace.edit("code");
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/logo");
+
+            //Stuff
+            var logo = new Logo();
+            logo.setTextOutput(textOutput);
+
+            //Canvas Context
+            jQuery('[logo-action=draw]').click(function(){
+                var canvasContext = new C2S({
+                    width: jQuery('#svg-container').width(),
+                    height:  jQuery('#svg-container').height(),
+                    enableMirroring : false
+                });
+
+                var turtle = new Turtle(canvasContext, {
+                    x: jQuery('#svg-container').width(),
+                    y:  jQuery('#svg-container').height(),
+                    updateTurtlePositionCallback: function(theTurtle){
+                        //jQuery('#svg-container').html(canvasContext.getSerializedSvg());
+                        //alert(theTurtle);
+                    }
+                });
+                logo.setTurtle(turtle);
+                logo.run(editor.getValue());
+                jQuery('#svg-container').html(canvasContext.getSvg());
+                jQuery('#svgLink').attr("href", "data:image/svg+xml;base64,\n" + btoa(canvasContext.getSerializedSvg()));
+            });
+
+            //Canvas Context
+            jQuery('[logo-action=save]').click(function(){
+                //Do Something
+            });
+
+            //Canvas Context
+            jQuery('[logo-action=clear]').click(function(){
+                jQuery('#svg-container').html('');
+            });
+
+            jQuery(window).resize();
+        });
+
+        jQuery(window).resize(function() {
+            var heightInPixels = jQuery(window).height() - jQuery('#buttons').height() - 20;
+
+            jQuery('.full-height').css('height', heightInPixels + "px");
+            jQuery('#code').height(heightInPixels);
+        });
+    </script>
+
+</head>
+
+<body>
+    <div id="main">
+
+        <div id="content" class="full-height">
+            <div class="inner">
+
+                <div id="code" style="height: 510px">
+reset
+
+to sawtooth :depth :width :kerf :n
+    repeat :n [
+        fw :width - :kerf
+        rt 90
+        fw :depth + :kerf
+        lt 90
+        fw :width + :kerf
+        lt 90
+        fw :depth + :kerf
+        rt 90
+    ]
+end
+
+rt 90
+
+repeat 4 [
+    sawtooth 5 5 0.1 3
+    lt 90
+]
+
+penup
+rt 90
+fw 20
+lt 30
+pendown
+
+repeat 3[
+    sawtooth 5 5 0.1 3
+    lt 120
+]
+
+penup
+backward 15
+rt 90
+fw 50
+lt 30
+pendown
+
+
+repeat 6 [
+    sawtooth 5 5 0.1 3
+    lt 60
+]
+                </div>
+
+                <div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div id="left" class="full-height">
+            <div class="inner">
+                <div id="svg-container" class="full-height" style="width: 100%;"></div>
+                <!--<div id="turtle">-->
+                    <!--<embed width="20" height="20" id='sprite' src="svg/turtle.svg"/>-->
+                <!--</div>-->
+            </div>
+
+        </div>
+
+    </div>
+    <div style="" id="buttons">
+        <button logo-action="draw" id="refresh">Draw</button>
+        <button logo-action="save" id="save">Save</button>
+        <a id="svgLink" href-lang="image/svg+xml" href="" title="awesomeness.svg">Link To SVG</a>
+        <button logo-action="clear" id="clear">Clear</button>
+    </div>
+
+    <div id="oldcode" style="display: none;">&nbsp;</div>
+</body>
+</html>

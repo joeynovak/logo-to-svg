@@ -1,9 +1,7 @@
-Papert
-====
+This project is a HEAVILY edited version of papert.
 
-a logo interpreter in javascript, with turtle graphics, hosted on GAE http://logo.twentygototen.org
-
-Try a static, client-side-only demo at: http://jywarren.github.io/papert/static/
-
-SVG export made possible by https://github.com/gliffy/canvas2svg
-
+Many, many people contributed to this indirectly, and without them, I could not have made this.  They include the creators and contributors to the following projects:
+- https://github.com/ajaxorg/ace/ 
+- https://github.com/gliffy/canvas2svg
+- https://github.com/jywarren/papert (svg-canvas changes)
+    
