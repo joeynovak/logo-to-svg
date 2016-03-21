@@ -44,20 +44,15 @@
                     }
                 });
                 logo.setTurtle(turtle);
-                logo.run(editor.getValue());
+                var result = logo.run(editor.getValue());
+                if(result != null && result.type == "error"){
+                    alert("Error: " + result.data);
+                }
+
                 jQuery('#svg-container').html(canvasContext.getSvg());
                 jQuery('#svgLink').attr("href", "data:image/svg+xml;base64,\n" + btoa(canvasContext.getSerializedSvg()));
             });
 
-            //Canvas Context
-            jQuery('[logo-action=save]').click(function(){
-                //Do Something
-            });
-
-            //Canvas Context
-            jQuery('[logo-action=clear]').click(function(){
-                jQuery('#svg-container').html('');
-            });
 
             jQuery(window).resize();
         });
@@ -127,6 +122,7 @@
         </a>
         <button logo-action="draw" id="refresh">Refresh</button>
         <a id="svgLink" href-lang="image/svg+xml" href="" title="awesomeness.svg">Link To SVG</a>
+        <a href="reference.txt" target="_blank">Logo Reference</a>
 
 
     </div>
