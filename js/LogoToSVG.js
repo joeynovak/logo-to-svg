@@ -68,6 +68,7 @@ LogoToSVG = function(){
 
     function loadCode(code){
         editor.setValue(code);
+        jQuery('[logo-action=draw]').click();
     }
 
     return ns;
