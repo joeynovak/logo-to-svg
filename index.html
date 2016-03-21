@@ -5,19 +5,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Logo To SVG</title>
     <link rel="stylesheet" type="text/css" href="css/papert.css"/>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.1.js"></script>
     <script type="text/javascript" src="js/canvas2svg.js"></script>
     <script type="text/javascript" src="js/turtle.js"></script>
     <script type="text/javascript" src="js/parser.js"></script>
     <script type="text/javascript" src="js/logo.js"></script>
+    <script type="text/javascript" src="js/LogoToSVG.js"></script>
     <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="js/init.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.1.js"></script>
-
+    <script type="text/javascript" src="//www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="09gy41b9tr6bhu0"></script>
     <script type="text/javascript">
         var editor;
         jQuery(function () {
             //Initialize the editor
             editor = ace.edit("code");
+
             editor.setTheme("ace/theme/monokai");
             editor.getSession().setMode("ace/mode/logo");
 
@@ -42,20 +44,15 @@
                     }
                 });
                 logo.setTurtle(turtle);
-                logo.run(editor.getValue());
+                var result = logo.run(editor.getValue());
+                if(result != null && result.type == "error"){
+                    alert("Error: " + result.data);
+                }
+
                 jQuery('#svg-container').html(canvasContext.getSvg());
                 jQuery('#svgLink').attr("href", "data:image/svg+xml;base64,\n" + btoa(canvasContext.getSerializedSvg()));
             });
 
-            //Canvas Context
-            jQuery('[logo-action=save]').click(function(){
-                //Do Something
-            });
-
-            //Canvas Context
-            jQuery('[logo-action=clear]').click(function(){
-                jQuery('#svg-container').html('');
-            });
 
             jQuery(window).resize();
         });
@@ -77,51 +74,6 @@
             <div class="inner">
 
                 <div id="code" style="height: 510px">
-reset
-
-to sawtooth :depth :width :kerf :n
-    repeat :n [
-        fw :width - :kerf
-        rt 90
-        fw :depth + :kerf
-        lt 90
-        fw :width + :kerf
-        lt 90
-        fw :depth + :kerf
-        rt 90
-    ]
-end
-
-rt 90
-
-repeat 4 [
-    sawtooth 5 5 0.1 3
-    lt 90
-]
-
-penup
-rt 90
-fw 20
-lt 30
-pendown
-
-repeat 3[
-    sawtooth 5 5 0.1 3
-    lt 120
-]
-
-penup
-backward 15
-rt 90
-fw 50
-lt 30
-pendown
-
-
-repeat 6 [
-    sawtooth 5 5 0.1 3
-    lt 60
-]
                 </div>
 
                 <div>
@@ -143,10 +95,36 @@ repeat 6 [
 
     </div>
     <div style="" id="buttons">
-        <button logo-action="draw" id="refresh">Draw</button>
-        <button logo-action="save" id="save">Save</button>
+        <span id="dropBoxChooserButtonContainer"></span>
+        <script>
+            var options = {
+                success: LogoToSVG.dropboxChooserSuccessCallback,
+
+                cancel: function() {
+
+                },
+                multiselect: false, // or true
+                linkType: "direct",
+                extensions: ['.txt'],
+            };
+            var button = Dropbox.createChooseButton(options);
+            document.getElementById("dropBoxChooserButtonContainer").appendChild(button);
+        </script>
+        <a id="saveCodeToDropboxButton" href="" class="dropbox-dropin-btn dropbox-dropin-default">
+            <span class="dropin-btn-status"></span>
+            Save Logo
+        </a>
+
+
+        <a id="saveSVGToDropboxButton" href="" class="dropbox-dropin-btn dropbox-dropin-default">
+            <span class="dropin-btn-status"></span>
+            Save SVG
+        </a>
+        <button logo-action="draw" id="refresh">Refresh</button>
         <a id="svgLink" href-lang="image/svg+xml" href="" title="awesomeness.svg">Link To SVG</a>
-        <button logo-action="clear" id="clear">Clear</button>
+        <a href="reference.txt" target="_blank">Logo Reference</a>
+
+
     </div>
 
     <div id="oldcode" style="display: none;">&nbsp;</div>

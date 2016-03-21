@@ -460,10 +460,10 @@ Logo.prototype.setup = function () {
     
 }
 
-
 Logo.prototype.run = function (code) {
     var js = new Array();
-   
+
+    this.t = new Tokenizer();
     this.t.load(code);
     this.p.load(this.t); 
     
