@@ -2,6 +2,7 @@
  * Created by joey on 3/20/2016.
  */
 LogoToSVG = function(){
+    var currentFilename = '';
     var ns = {};
     ns.loadCodeFromUrl = loadCodeFromUrl;
     ns.loadCode = loadCode;
@@ -16,7 +17,10 @@ LogoToSVG = function(){
     jQuery(init);
 
     function saveCodeToDropbox(){
-        var fileName = prompt("What would you like for the filename?");
+        var fileName = prompt("What would you like for the filename?", currentFilename);
+        if(currentFilename == ''){
+            currentFilename = fileName;
+        }
         if(fileName != null){
             var options = {
                 files: [
@@ -33,7 +37,8 @@ LogoToSVG = function(){
 
 
     function saveSVGToDropbox(){
-        var fileName = prompt("What would you like for the filename?");
+        var svgFilename = currentFilename.slice(0, -4) + '.svg';
+        var fileName = prompt("What would you like for the filename?", svgFilename);
         if(fileName != null) {
             var options = {
                 files: [
@@ -56,6 +61,7 @@ LogoToSVG = function(){
 
     function dropboxChooserSuccessCallback(files){
         loadCodeFromUrl(files[0].link);
+        currentFilename = files[0].name;
     }
 
     function loadCodeFromUrl(url){
