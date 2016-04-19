@@ -21,6 +21,7 @@
         jQuery(function () {
             //Initialize the editor
             editor = ace.edit("code");
+            editor.$blockScrolling = Infinity;
 
             editor.setTheme("ace/theme/monokai");
             editor.getSession().setMode("ace/mode/logo");
@@ -102,6 +103,7 @@
 
     </div>
     <div style="" id="buttons">
+        <button id="New" onclick="LogoToSVG.loadCodeFromUrl('example.txt'); return false;">New</button>
         <span id="dropBoxChooserButtonContainer"></span>
         <script>
             var options = {
@@ -112,7 +114,7 @@
                 },
                 multiselect: false, // or true
                 linkType: "direct",
-                extensions: ['.txt'],
+                extensions: ['.txt', '.logo'],
             };
             var button = Dropbox.createChooseButton(options);
             document.getElementById("dropBoxChooserButtonContainer").appendChild(button);
