@@ -10,13 +10,12 @@ body{
 #content{
     display: inline-block;
     width:49%;
-    height: 400px; /* I hate CSS */
 }
 
 #left{
     display: inline-block;
     width: 49%;
-    height: 400px;
+
 }
 
 

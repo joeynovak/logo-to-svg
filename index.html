@@ -1,10 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" style="height: 100%">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Logo To SVG</title>
     <link rel="stylesheet" type="text/css" href="css/papert.css"/>
+    <script type="text/javascript" src="js/store+json2.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.12.1.js"></script>
     <script type="text/javascript" src="js/canvas2svg.js"></script>
     <script type="text/javascript" src="js/turtle.js"></script>
@@ -32,7 +33,7 @@
             jQuery('[logo-action=draw]').click(function(){
                 var canvasContext = new C2S({
                     width: jQuery('#svg-container').width(),
-                    height:  jQuery('#svg-container').height(),
+                    height:  '100%',
                     enableMirroring : false
                 });
 
@@ -55,20 +56,24 @@
             });
 
 
+            LogoToSVG.initAutosave();
+
             jQuery(window).resize();
         });
 
         jQuery(window).resize(function() {
-            var heightInPixels = jQuery(window).height() - jQuery('#buttons').height() - 20;
-
-            jQuery('.full-height').css('height', heightInPixels + "px");
-            jQuery('#code').height(heightInPixels);
+            var heightInPixels = jQuery(window).height();
+            jQuery('#code').height(heightInPixels - 25);
+            jQuery('#svg-container').height(heightInPixels - 25);
+            jQuery('[logo-action=draw]').click();
         });
+
+
     </script>
 
 </head>
 
-<body>
+<body style="min-height:100%">
 <a href="https://github.com/joeynovak/logo-to-svg/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
     <div id="main">
 
@@ -87,7 +92,7 @@
 
         <div id="left" class="full-height">
             <div class="inner">
-                <div id="svg-container" class="full-height" style="width: 100%;"></div>
+                <div id="svg-container" style="width: 100%; height: 100%"></div>
                 <!--<div id="turtle">-->
                     <!--<embed width="20" height="20" id='sprite' src="svg/turtle.svg"/>-->
                 <!--</div>-->
@@ -123,8 +128,8 @@
             Save SVG
         </a>
         <button logo-action="draw" id="refresh">Run</button>
-        <a id="svgLink" href-lang="image/svg+xml" href="" title="awesomeness.svg">Link To SVG</a>
-        <a href="reference.txt" target="_blank">Logo Reference</a>
+        <a id="svgLink" href-lang="image/svg+xml" href="" title="awesomeness.svg" target="_blank">Link To SVG</a>
+        <a href="reference.txt" target="_blank" target="_logoReference">Logo Reference</a>
 
 
     </div>
