@@ -1,7 +1,7 @@
 /**
  * Created by joey on 3/20/2016.
  */
-LogoToSVG = function(){
+JavaScript2SVG = function(){
     var currentFilename = '';
     var ns = {};
     var lastEditorValue = '';
@@ -22,7 +22,7 @@ LogoToSVG = function(){
         if(store.enabled && store.get('autosaved-code') != null){
             loadFromHistory();
         } else {
-            loadCodeFromUrl('example.txt');
+            loadCodeFromUrl('example.js');
         }
 
         $(window).blur(function(){
