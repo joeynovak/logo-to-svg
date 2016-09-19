@@ -75,6 +75,7 @@ var Turtle = function(element){
         return this;
     }
 
+    this.draw = draw;
     function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
         var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
 
@@ -97,5 +98,12 @@ var Turtle = function(element){
         ].join(" ");
 
         return d;
+    }
+
+    function draw(code){
+        this.x=0;
+        this.y=0;
+        jQuery('#SvgjsG1007').html('');
+        eval(code);
     }
 };

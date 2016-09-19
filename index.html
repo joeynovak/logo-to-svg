@@ -11,8 +11,8 @@
     <script type="text/javascript" src="js/turtle.js"></script>
     <script type="text/javascript" src="js/js2svg.js"></script>
     <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" src="js/init.js"></script>
     <script type="text/javascript" src="//www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="09gy41b9tr6bhu0"></script>
+    <script type="text/javascript" src="js/svg-pan-zoom.js"></script>
     <script type="text/javascript">
         var editor;
         var turtle = null;
@@ -32,7 +32,14 @@
 
             turtle = new Turtle(document.getElementById('svg'));
 
-            jQuery('[logo-action=draw]').click(eval(editor.getValue()));
+            jQuery('[logo-action=draw]').click(function(){turtle.draw(editor.getValue())});
+
+            jQuery('#svg-container svg').data('zoom-tiger', svgPanZoom('#svg-container svg', {
+                zoomEnabled: true,
+                controlIconsEnabled: true,
+                fit: true,
+                center: true,
+            }));
         });
 
         jQuery(window).resize(function() {
@@ -44,6 +51,7 @@
 
 
     </script>
+    <script type="text/javascript" src="js/init.js"></script>
     <style>
         line, circle{
             stroke: black;
@@ -71,7 +79,7 @@
 
         <div id="left" class="full-height">
             <div class="inner">
-                <div id="svg-container" style="width: 100%; height: 100%">
+                <div id="svg-container" style="width: 100%; height: 100%;">
                     <svg
                             xmlns:dc="http://purl.org/dc/elements/1.1/"
                             xmlns:cc="http://creativecommons.org/ns#"
@@ -80,8 +88,8 @@
                             xmlns="http://www.w3.org/2000/svg"
                             xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
                             xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                            width="210mm"
-                            height="297mm"
+                            width="100%"
+                            height="100%"
                             viewBox="0 0 744.09448819 1052.3622047"
                             id="svg"
                             version="1.1"
@@ -160,10 +168,6 @@
         <button logo-action="draw" id="refresh">Run</button>
         <a id="svgLink" href-lang="image/svg+xml" href="" title="awesomeness.svg" target="_blank">Link To SVG</a>
         <a href="reference.txt" target="_blank" target="_logoReference">Logo Reference</a>
-
-
     </div>
-
-    <div id="oldcode" style="display: none;">&nbsp;</div>
 </body>
 </html>
