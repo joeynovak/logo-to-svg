@@ -101,8 +101,9 @@ var Turtle = function(element){
     }
 
     function draw(code){
-        this.x=0;
-        this.y=0;
+        this.x=jQuery(jQuery('svg').eq(0)).width() / 2;
+        this.y=jQuery(jQuery('svg').eq(0)).height() / 2;
+        this.angle = 0;
         jQuery('#SvgjsG1007').html('');
         eval(code);
     }
